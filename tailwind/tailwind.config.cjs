@@ -1,26 +1,24 @@
+/* eslint-disable comma-dangle */
 /** @type {import('tailwindcss').Config} */
 
 const colors = require('./tailwind.colors.cjs')
 
 module.exports = {
-  content: [
-    './index.html',
-    './src/**/*.{vue,js,ts,jsx,tsx}'
-  ],
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     colors: {
       ...colors,
-      primary: '#0f172a',
-      gray: '#6b7280',
-      'gray-light': '#f3f4f6',
-      'gray-ultra-light': '#e5e7eb',
-      'gray-medium': '#9ca3af',
-      'gray-dark': '#374151'
+      primary: '#F66F4D',
+      'gray-dark': '#2D3134',
+      'gray-light': '#5B5F62',
+      'white-dark': '#FAF8ED',
     },
     fontFamily: {
-      main: ['Inter', 'sans-serif']
+      main: ['Inter', 'sans-serif'],
+      pop: ['Poppins', 'sans-serif'],
+      sen: ['Sen', 'sans-serif'],
     },
-    extend: {}
+    extend: {},
   },
-  plugins: []
+  plugins: [],
 }

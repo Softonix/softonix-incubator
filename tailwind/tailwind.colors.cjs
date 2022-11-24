@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 const colors = require('tailwindcss/colors')
 
 module.exports = {
@@ -7,5 +8,5 @@ module.exports = {
   primary: 'var(--el-color-primary)',
   success: 'var(--el-color-success)',
   warning: 'var(--el-color-warning)',
-  danger: 'var(--el-color-danger)'
+  danger: 'var(--el-color-danger)',
 }
