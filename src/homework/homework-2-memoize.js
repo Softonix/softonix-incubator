@@ -1,16 +1,30 @@
 // Реалізуйте функцію дизайн паттерну memoize яка кешує виконання виклику з одинаковими аргументами
 // та при повторному виклику лише повертає вже закешований результат.
 
-function sum (a, b) { return a + b } // for test
-
-// eslint-disable-next-line
-function memoize (fn) {
-  // fn ваш код тут...
+let sum = function (...args) {
+  return args.reduce((a, b) => a + b, 0)
 }
 
-// приклад виконання вашого коду
-const sumMemoized = memoize(sum)
+function memoize (func) {
+  const cache = new Map()
 
-sumMemoized(1, 3) // результат 4
-sumMemoized(3, 3) // результат 6
-sumMemoized(1, 3) // результат 4, відбулось повторне виконання, результат повернуто з кешу без виклику додавання
+  return function (...args) {
+    const sumNumber = JSON.stringify(args.sort((a, b) => a - b))
+    if (cache.has(sumNumber)) {
+      console.log('cached number')
+      return cache.get(sumNumber)
+    }
+
+    const result = func(...args)
+    cache.set(sumNumber, result)
+    return result
+  }
+}
+
+sum = memoize(sum)
+
+console.log(sum(1, 1, 3))
+console.log(sum(1, 3, 1))
+console.log(sum(1, 2))
+console.log(sum(2, 1))
+console.log(sum(1, 2))
