@@ -21,7 +21,7 @@ interface IThird {
   i: number
 }
 
-type TUnified = unknown // ...
+type TUnified = IFirst | ISecond & { d: string } | Omit<IThird, 'h'>;
 
 export {
   type TUnified

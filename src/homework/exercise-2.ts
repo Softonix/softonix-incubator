@@ -16,9 +16,9 @@ interface IAdmin {
   role: string
 }
 
-type TPerson = unknown
+type TPerson = IUser | IAdmin
 
-const persons: IUser[] /* <- замінити на IPerson[] */ = [
+const persons: TPerson[] = [
   {
     name: 'Max Mustermann',
     age: 25,
@@ -49,3 +49,42 @@ export {
   persons,
   logPerson
 }
+
+// interface IPerson {
+//   name: string
+//   age: number
+//   occupation?: string
+//   role?: string
+// }
+
+// const persons: IPerson[] = [
+//   {
+//     name: 'Max Mustermann',
+//     age: 25,
+//     occupation: 'Chimney sweep'
+//   },
+//   {
+//     name: 'Jane Doe',
+//     age: 32,
+//     role: 'Administrator'
+//   },
+//   {
+//     name: 'Kate Müller',
+//     age: 23,
+//     occupation: 'Astronaut'
+//   },
+//   {
+//     name: 'Bruce Willis',
+//     age: 64,
+//     role: 'World saver'
+//   }
+// ]
+
+// function logPerson (person: IPerson) {
+//   console.log(` - ${person.name}, ${person.age}`)
+// }
+
+// export {
+//   persons,
+//   logPerson
+// }
