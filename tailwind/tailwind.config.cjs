@@ -12,13 +12,22 @@ module.exports = {
       ...colors,
       primary: '#0f172a',
       gray: '#6b7280',
-      'gray-light': '#f3f4f6',
-      'gray-ultra-light': '#e5e7eb',
-      'gray-medium': '#9ca3af',
-      'gray-dark': '#374151'
+      'yellow-light': '#FAF8ED',
+      'orng-true': '#F66F4D',
+      'title-color': '#2D3134',
+      'description-color': '#5B5F62',
+      'white-color': '#FFFFFF'
     },
     fontFamily: {
-      main: ['Inter', 'sans-serif']
+      poppins: ['Poppins'],
+      sen: ['Sen'],
+      inter: ['inter']
+    },
+    container: {
+      screens: {
+        desktop: '1210px'
+      },
+      padding: '20px'
     },
     extend: {}
   },
