@@ -3,14 +3,20 @@
     <div class="p-6 pb-2">
       <div class="flex">
         <div class="flex-grow text-sm truncate">
-          <template v-if="editMode">
+          <template v-if="editMode || !checkProps()">
             <input
               ref="inputRef"
               v-model="localContact.name"
               type="text"
               class="block font-medium w-full"
+              placeholder="Enter your name"
             >
-            <input v-model="localContact.description" type="text" class="block mt-1 text-gray w-full">
+            <input
+              v-model="localContact.description"
+              placeholder="Enter info about you"
+              type="text" class="block mt-1 text-gray w-full"
+            >
+            <input v-model="localContact.image" placeholder="URL" type="text" class="block mt-1 w-full">
           </template>
 
           <template v-else>
@@ -26,28 +32,35 @@
         >
       </div>
       <div class="flex justify-end mt-2 gap-2">
-        <template v-if="editMode">
-          <span
-            class="text-blue-500 font-medium text-xs cursor-pointer hover:underline"
-            @click="editMode = false"
-          >Cancel</span>
-
-          <span
-            class="text-blue-500 font-medium text-xs cursor-pointer hover:underline"
-            @click="onSave"
-          >Save</span>
-        </template>
-
-        <template v-else>
+        <template v-if="!editMode && checkProps()">
           <span
             class="text-blue-500 font-medium text-xs cursor-pointer hover:underline"
             @click="triggerEditMode"
           >Edit</span>
-
           <span
             class="text-red-500 font-medium text-xs cursor-pointer hover:underline"
             @click="$emit('delete')"
           >Delete</span>
+        </template>
+        <template v-else-if="!checkProps()">
+          <span
+            class="text-red-500 font-medium text-xs cursor-pointer hover:underline"
+            @click="$emit('delete')"
+          >DeleteCard</span>
+          <span
+            class="text-blue-500 font-medium text-xs cursor-pointer hover:underline"
+            @click="onSave"
+          >SaveCard</span>
+        </template>
+        <template v-else>
+          <span
+            class="text-red-500 font-medium text-xs cursor-pointer hover:underline"
+            @click="editMode =false"
+          >Cancel</span>
+          <span
+            class="text-blue-500 font-medium text-xs cursor-pointer hover:underline"
+            @click="onSave"
+          >Save</span>
         </template>
       </div>
     </div>
@@ -100,5 +113,12 @@ async function triggerEditMode () {
 function onSave () {
   emit('save', localContact.value)
   editMode.value = false
+}
+
+const checkProps = (): boolean => {
+  if (props.contact.name && props.contact.image && props.contact.description) {
+    return true
+  }
+  return false
 }
 </script>

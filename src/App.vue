@@ -1,8 +1,8 @@
 <template>
   <div class="max-w-[1440px] p-6">
     <h3 class="font-medium m-0">Contact list</h3>
-
-    <div class="contact-list grid-cols-[repeat(auto-fill,_minmax(320px,_1fr))] grid gap-5 my-5">
+    <button @click="addCard">Add card +</button>
+    <div class="contact-list items-center grid-cols-[repeat(auto-fill,_minmax(320px,_1fr))] grid gap-5 my-5">
       <ContactItem
         v-for="(contact, index) in contacts"
         :key="contact.id"
@@ -19,6 +19,7 @@ import { ref } from 'vue'
 import type { IContact } from '@/types'
 import ContactItem from '@/components/ContactItem.vue'
 
+// mok data
 const contacts = ref<IContact[]>([
   {
     id: 1,
@@ -46,5 +47,21 @@ function deleteContact (index: number) {
 
 function onContactSave (contact: IContact, index: number) {
   contacts.value[index] = { ...contact }
+}
+
+function addCard (): void {
+  const newCard: IContact = {
+    id: contacts.value.length + 1,
+    name: '',
+    description: '',
+    image: 'https://raw.githubusercontent.com/gist/theAdityaNVS/f5b585d1082da2dffffea32434f37956/raw/7f9552d0a179b4f84059259fa878199e369b069c/GitHub-logo.gif'
+  }
+  contacts.value.push(newCard)
+
+  const index = contacts.value.findIndex(contact => contact.id === newCard.id)
+  if (index !== -1) {
+    console.log(index)
+    console.log(contacts.value)
+  }
 }
 </script>
