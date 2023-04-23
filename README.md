@@ -1,35 +1,61 @@
-# Section #1 - tools & technologies
+# Section #5 - intro to Vue
 
 ### Goal
-This section represents onboarding to the tools and technologies Softonix is used for building the projects. You need to understand how correctly chosen tools can speed up the development time. What is the proper way of using IDE, learn shortcuts, plugins and extensions. You will understand the skeleton for modern web development tooling: Node.js and it’s package manager: NPM
+In this section we will take a look at the basic tools of Vue. We will split our code into components, 
+connect a reactivity to our data, add some interaction to the page and many more.
+
 
 ### Tech plan
-- IDE Workflow (Eslint, Volar and VSCode config)
-- NPM
-- ESLint
-- Tech stack, base project intro
+- Rewrite static cards created during the previous lecture using Vue.js tools
+- Split HTML into components, pass props and emit events
+- Connect list rendering and conditional rendering
+- Implement input data binding
+- Add reactivity
+- Add edit mode for specific contact and logic to delete it
+- Add template ref to have a direct connection to our input DOM element
+
+- **Home Work**: Create a custom input component
+- **Home Work**: Create an html form with validation
 
 ### Materials for the section
-- Read Why VSCode? [link](https://code.visualstudio.com/docs/editor/whyvscode) 
-- Install VSCode IDE: [link](https://code.visualstudio.com/download)
-- Install Node.js LTS: [link](https://nodejs.org/uk/download/)
-- Read What is NPM? [link](https://www.impressivewebs.com/npm-for-beginners-a-guide-for-front-end-developers/)
-- Read Why is linter important for development? [link](https://cloudfour.com/thinks/code-linting-for-web-designers/)
-- Practice top shortcuts for VSCode: [link](https://www.desuvit.com/11-vscode-keyboard-shortcuts-that-will-boost-your-productivity/)
+- **Read**: [script setup (composition api)](https://vuejs.org/api/sfc-script-setup.html)
+- **Read**: [Components Basics](https://vuejs.org/guide/essentials/component-basics.html)
+- **Read**: [Conditional rendering](https://vuejs.org/guide/essentials/conditional.html)
+- **Read**: [List Rendering](https://vuejs.org/guide/essentials/list.html)
+- **Read**: [Event Handling](https://vuejs.org/guide/essentials/event-handling.html)
+- **Read**: [Reactivity core](https://vuejs.org/api/reactivity-core.html)
+- **Read**: [Form Input Bindings](https://vuejs.org/guide/essentials/forms.html)
+- **Read**: [Computed Properties](https://vuejs.org/guide/essentials/computed.html#computed-properties)
+- **Read**: [Template Refs](https://vuejs.org/guide/essentials/template-refs.html)
+- **Read**: [nextTick](https://vuejs.org/api/general.html#nexttick)
+- **Read**: [TypeScript with Composition API](https://vuejs.org/guide/typescript/composition-api.html#typing-reactive)
+- **Practice**: Read all the sections above and try them on your own
 
 ### Video Material
-[Youtube link](https://www.youtube.com/watch?v=tJ6RFnAkY5c)
+[Youtube link](https://youtu.be/ihDn1HvgFZ8)
 
 ### Section Playground
-- Branch name: [`section-1-tooling`](https://github.com/Softonix/softonix-incubator/tree/section-1-tooling)
-- Tag1: `#section-1-tooling-start`
-    - Represent a clean application with ESLint installed with a config file.
-    - JSON file for VSCode configuration
-- Tag2: `#section-2-tooling-end`
-    - Installed all extensions: Volar, ESlint, Vue Peek (Needed for later section: #5 Vue).
-    - Install project packages and run the project: npm install & npm run dev
-    - Updated configuration of VSCode based on config file.
-    - Turned off built-in Typescript in VSCode.
-    - JS Examples with bad and good linting. Showcased examples on how to format files using VSCode.
-    - JS Examples with navigation across the different files and how IDE can help. Search in file, search file, rename variables, show `Go back / Go forward` examples.
+- Branch name: [`section-5-intro-to-vue`](https://github.com/Softonix/softonix-incubator/tree/section-5-intro-to-vue)
+- Tag1: `#section-5-intro-to-vue-start`
+    - Prepared page with all the code from the previous lecture
+- Tag2: `#section-5-intro-to-vue-end`
+    - Split the code into components
+    - Added list rendering
+    - Added conditional rendering
+    - Added event handlers
+    - Added reactivity
+    - Added two way data binding to the inputs
+    - Added template refs
+
+### Homework
+This section includes homework. You need to fork this repo, finish homework in your repo, push your changes to origin and send URL with your forked repo and completed task to related person.
+
+- Implement contact validation during editMode
+- If either name or description field is disabled, you should not be able to save a contact. Save button should be greyed out and not clickable.
+- Implement contact creation.
+- Add ‘Add contact’ button next to the page title.
+- By clicking on the ‘Add contact’ button the new empty contact card should be inserted at the beginning of the list.
+- The new contact form should include name, description and image fields.
+- By clicking on a cancel button during a contact creation, it should be removed from the list.
+- Validation should work for both creating and editing a contact
 
