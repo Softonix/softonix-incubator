@@ -3,14 +3,20 @@
     <div class="p-6 pb-2">
       <div class="flex">
         <div class="flex-grow text-sm truncate">
-          <template v-if="editMode">
+          <template v-if="editMode || validation()">
             <input
               ref="inputRef"
               v-model="localContact.name"
               type="text"
               class="block font-medium w-full"
+              placeholder="Full Name"
             >
-            <input v-model="localContact.description" type="text" class="block mt-1 text-gray w-full">
+            <input
+              v-model="localContact.description"
+              placeholder="Professional position"
+              type="text" class="block mt-1 text-gray w-full"
+            >
+            <input v-model="localContact.image" placeholder="URL" type="text" class="block mt-1 w-full">
           </template>
 
           <template v-else>
@@ -26,28 +32,35 @@
         >
       </div>
       <div class="flex justify-end mt-2 gap-2">
-        <template v-if="editMode">
+        <template v-if="!editMode && !validation()">
           <span
             class="text-blue-500 font-medium text-xs cursor-pointer hover:underline"
-            @click="editMode = false"
-          >Cancel</span>
-
+            @click="triggerEditMode"
+          >Edit</span>
+          <span
+            class="text-red-500 font-medium text-xs cursor-pointer hover:underline"
+            @click="$emit('delete')"
+          >Delete</span>
+        </template>
+        <template v-else-if="validation()">
+          <span
+            class="text-red-500 font-medium text-xs cursor-pointer hover:underline"
+            @click="$emit('delete')"
+          >Delete</span>
           <span
             class="text-blue-500 font-medium text-xs cursor-pointer hover:underline"
             @click="onSave"
           >Save</span>
         </template>
-
         <template v-else>
           <span
-            class="text-blue-500 font-medium text-xs cursor-pointer hover:underline"
-            @click="triggerEditMode"
-          >Edit</span>
-
-          <span
             class="text-red-500 font-medium text-xs cursor-pointer hover:underline"
-            @click="$emit('delete')"
-          >Delete</span>
+            @click="editMode =false"
+          >Cancel</span>
+          <span
+            class="text-blue-500 font-medium text-xs cursor-pointer hover:underline"
+            @click="onSave"
+          >Save</span>
         </template>
       </div>
     </div>
@@ -85,7 +98,7 @@ const inputRef = ref<HTMLInputElement>()
 const localContact = ref<Omit<IContact, 'id'>>({
   name: '',
   description: '',
-  image: ''
+  image: 'https://firebasestorage.googleapis.com/v0/b/lapiec-6c366.appspot.com/o/user.png?alt=media&token=2096ff6f-f1c8-441f-baa1-f7b6aac73cdb'
 })
 
 const editMode = ref(false)
@@ -101,4 +114,12 @@ function onSave () {
   emit('save', localContact.value)
   editMode.value = false
 }
+
+function validation (): boolean {
+  if (props.contact.name && props.contact.description) {
+    return false
+  }
+  return true
+}
+
 </script>
