@@ -1,1 +1,1 @@
-export * from './modules/contacts.store'
+export * from './modules/contacts.store.js'

@@ -24,4 +24,5 @@
 defineProps<{
   title?: string
 }>()
+
 </script>

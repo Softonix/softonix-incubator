@@ -17,6 +17,7 @@
           <p class="text-gray cursor-text mt-1 truncate">
             {{ contact.description }}
           </p>
+          <p class="font-medium cursor-text">{{ contact.role }}</p>
         </template>
       </div>
 
@@ -91,21 +92,16 @@ import type { IContact } from '@/types'
 import IconEnvelope from '@/components/icons/IconEnvelope.vue'
 import IconPhone from '@/components/icons/IconPhone.vue'
 import Card from '@/components/Card.vue'
-
 const props = defineProps<{
   contact: IContact
 }>()
-
 const emit = defineEmits(['delete', 'save'])
-
 const inputRef = ref<HTMLInputElement>()
-
 const localContact = ref<Omit<IContact, 'id'>>({
   name: '',
   description: '',
   image: ''
 })
-
 const nameAbbrv = computed(() => {
   return props.contact.name.split(' ').reduce((acc, cur) => {
     if (acc.length < 2) {
@@ -114,20 +110,16 @@ const nameAbbrv = computed(() => {
     return acc
   }, '')
 })
-
 const editMode = ref(false)
-
 async function triggerEditMode () {
   editMode.value = true
   localContact.value = { ...props.contact }
   await nextTick()
   inputRef.value?.focus()
 }
-
 function onSave () {
   emit('save', localContact.value)
   editMode.value = false
 }
-
 const imageHasError = ref(false)
 </script>

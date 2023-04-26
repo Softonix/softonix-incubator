@@ -38,25 +38,19 @@ import { useRouter, useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useContactsStore } from '@/store'
 import type { IContact } from '@/types'
-
-import AppInput from '@/components/AppInput.vue'
+import AppInput from '../components/AppInput.vue'
 import AppButton from '@/components/AppButton.vue'
 import IconPlus from '@/components/icons/IconPlus.vue'
 import Card from '@/components/Card.vue'
-
 const router = useRouter()
 const route = useRoute()
-
 const contactsStore = useContactsStore()
 const { contacts } = storeToRefs(contactsStore)
 const { addContact, updateContact, deleteContact } = contactsStore
-
 const currentContact = computed(() => contacts.value.find(c => c.id === +route.params.contactId))
-
 const cardTitle = computed(() => {
   return currentContact.value ? 'Edit Contact' : 'New Contact'
 })
-
 const contactForm = reactive<IContact>(currentContact.value
   ? { ...currentContact.value }
   : {
@@ -65,17 +59,14 @@ const contactForm = reactive<IContact>(currentContact.value
     description: '',
     image: ''
   })
-
 const isFormValid = computed(() => {
   const { image, ...contact } = contactForm
   return Object.values(contact).every(c => !!c)
 })
-
 function onDelete () {
   deleteContact(currentContact.value as IContact)
   router.replace({ name: 'contacts' })
 }
-
 function onSave () {
   if (currentContact.value) {
     updateContact(contactForm)
