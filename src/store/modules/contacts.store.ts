@@ -66,10 +66,13 @@ export const useContactsStore = defineStore('contactsStore', () => {
     .sort((prev, next) => {
       switch (defSortValue.value) {
       case 'Ascending':
-        return prev.name < next.name ? -1 : 1
+        return prev.name.localeCompare(next.name)
       case 'Descending':
-        return prev.name > next.name ? -1 : 1
+        return next.name.localeCompare(prev.name)
       default:
+        if (defSortValue.value === 'Default') {
+          contacts.value = contacts.value.slice()
+        }
         return 0
       }
     })
