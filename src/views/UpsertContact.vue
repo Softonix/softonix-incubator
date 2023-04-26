@@ -23,7 +23,6 @@
             <template #icon>
               <IconPlus class="w-5 h-5" />
             </template>
-
             Save
           </AppButton>
         </div>

@@ -17,6 +17,7 @@
           <p class="text-gray cursor-text mt-1 truncate">
             {{ contact.description }}
           </p>
+          <p class="text-gray cursor-text mt-1 truncate italic">{{ contact.role }}</p>
         </template>
       </div>
 
