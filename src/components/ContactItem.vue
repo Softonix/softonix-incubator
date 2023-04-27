@@ -97,11 +97,12 @@ const props = defineProps<{
 }>()
 const emit = defineEmits(['delete', 'save'])
 const inputRef = ref<HTMLInputElement>()
-const localContact = ref<Omit<IContact, 'id'>>({
+const localContact = ref<Omit<IContact, 'id' | 'role'>>({
   name: '',
   description: '',
   image: ''
 })
+
 const nameAbbrv = computed(() => {
   return props.contact.name.split(' ').reduce((acc, cur) => {
     if (acc.length < 2) {

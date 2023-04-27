@@ -18,12 +18,10 @@
           <AppButton v-if="currentContact" class="flex-auto" @click="onDelete">
             Delete
           </AppButton>
-
           <AppButton class="flex-auto" :disabled="!isFormValid" @click="onSave">
             <template #icon>
               <IconPlus class="w-5 h-5" />
             </template>
-
             Save
           </AppButton>
         </div>
@@ -57,7 +55,8 @@ const contactForm = reactive<IContact>(currentContact.value
     id: contacts.value.length + 1,
     name: '',
     description: '',
-    image: ''
+    image: '',
+    role: 'User'
   })
 const isFormValid = computed(() => {
   const { image, ...contact } = contactForm
@@ -73,6 +72,6 @@ function onSave () {
   } else {
     addContact(contactForm)
   }
-  router.push({ name: 'contacts' })
+  // router.push({ name: 'contacts' })
 }
 </script>
