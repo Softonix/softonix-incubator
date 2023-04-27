@@ -6,6 +6,16 @@
 
         <AppInput v-model.trim="contactForm.description" placeholder="Description" />
 
+        <select
+          v-if="currentContact"
+          v-model.trim="contactForm.role"
+          class="rounded-md font-medium border border-gray-medium focus:border-gray-dark text-sm p-2 block w-full"
+        >
+          <option value="" disabled selected hidden>Please Choose...</option>
+          <option value="User" selected>User</option>
+          <option value="Admin">Admin</option>
+        </select>
+
         <AppInput v-model.trim="contactForm.image" placeholder="Image Link" />
       </div>
 
@@ -64,7 +74,7 @@ const contactForm = reactive<IContact>(currentContact.value
     name: '',
     description: '',
     image: '',
-    role: 'User'
+    role: ''
   })
 
 const isFormValid = computed(() => {
