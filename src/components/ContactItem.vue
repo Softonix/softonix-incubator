@@ -92,16 +92,21 @@ import type { IContact } from '@/types'
 import IconEnvelope from '@/components/icons/IconEnvelope.vue'
 import IconPhone from '@/components/icons/IconPhone.vue'
 import Card from '@/components/Card.vue'
+
 const props = defineProps<{
   contact: IContact
 }>()
+
 const emit = defineEmits(['delete', 'save'])
+
 const inputRef = ref<HTMLInputElement>()
-const localContact = ref<Omit<IContact, 'id' | 'role'>>({
-  name: '',
-  description: '',
-  image: ''
-})
+
+const localContact = ref<Omit<IContact, 'id'>>(
+  {
+    name: '',
+    description: '',
+    image: ''
+  })
 
 const nameAbbrv = computed(() => {
   return props.contact.name.split(' ').reduce((acc, cur) => {
