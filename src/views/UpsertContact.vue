@@ -74,7 +74,7 @@ const contactForm = reactive<IContact>(currentContact.value
     name: '',
     description: '',
     image: '',
-    role: ''
+    role: 'User'
   })
 
 const isFormValid = computed(() => {
