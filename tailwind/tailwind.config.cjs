@@ -15,7 +15,8 @@ module.exports = {
       'gray-light': '#f3f4f6',
       'gray-ultra-light': '#e5e7eb',
       'gray-medium': '#9ca3af',
-      'gray-dark': '#374151'
+      'gray-dark': '#374151',
+      'light-blue':'#1e9ad4'
     },
     fontFamily: {
       main: ['Inter', 'sans-serif']
