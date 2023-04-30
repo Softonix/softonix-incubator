@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 
 import { contactRouteNames, contactsRoutes } from '@/views/contacts/contacts.routes'
+import { jobOpeningsRouter } from '@/views/JobOpenings/JobOpenings.router'
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -8,5 +9,6 @@ export const routes: RouteRecordRaw[] = [
     redirect: { name: contactRouteNames.contacts }
   },
 
-  ...contactsRoutes
+  ...contactsRoutes,
+  ...jobOpeningsRouter
 ]

@@ -8,6 +8,7 @@ export const ComponentsBuilder = (config: ConfigEnv) => Components({
   dts: config.command === 'serve' && './dts/components.d.ts',
   dirs: [
     './src/components',
+    './src/layouts',
     ...buildViewsComponents()
   ]
 })

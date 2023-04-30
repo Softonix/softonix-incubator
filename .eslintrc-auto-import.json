@@ -60,6 +60,7 @@
     "useCssModule": true,
     "useCssVars": true,
     "useGlobalProperties": true,
+    "useJobOpeningStore": true,
     "useRoute": true,
     "useRouter": true,
     "useSlots": true,
