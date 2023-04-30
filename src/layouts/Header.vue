@@ -3,12 +3,12 @@
     <nav>
       <ul class="flex gap-3 pb-[20px]">
         <li>
-          <RouterLink active-class="text-[#ffb400]" :to="{name: $routeNames.contacts }">
+          <RouterLink active-class="text-blue-400 font-bold hover:cursor-pointer" :to="{name: $routeNames.contacts }">
             Contacts
           </RouterLink>
         </li>
         <li>
-          <RouterLink active-class="text-[#ffb400]" :to="{name: $routeNames.jobOpening }">
+          <RouterLink active-class="text-blue-400 font-bold hover:cursor-pointer" :to="{name: $routeNames.jobOpening }">
             Job Openings
           </RouterLink>
         </li>
