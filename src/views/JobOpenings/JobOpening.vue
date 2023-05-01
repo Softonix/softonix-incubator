@@ -29,14 +29,17 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue'
 const router = useRouter()
 
 const { $routeNames } = useGlobalProperties()
 const filterData = ref('')
+const sum = ref(0)
+console.log(sum.value)
 
 const jobOpeningStore = useJobOpeningStore()
 const { departments, jobOpenings } = storeToRefs(jobOpeningStore)
-console.log(departments.value)
+// console.log(departments.value)
 
 function jobListData () {
   const array: { department: string; filterArray: any[] }[] = []
@@ -55,7 +58,7 @@ function jobListData () {
       array.push(obj)
     }
   })
-  console.log(array)
+  // console.log(array)
   return array
 }
 
@@ -68,10 +71,16 @@ const filter = computed(() => {
     return jobListData()
   }
 
-  return jobListData().filter(item => {
+  const result = jobListData().filter(item => {
     return filterData.value.includes(item.department)
   })
+  console.log(result)
+
+  return result
 })
+
+const myResult = filter
+console.log(myResult)
 
 </script>
 
