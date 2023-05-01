@@ -41,6 +41,27 @@ const jobOpeningStore = useJobOpeningStore()
 const { departments, jobOpenings } = storeToRefs(jobOpeningStore)
 // console.log(departments.value)
 
+// function jobListData () {
+//   const array: { department: string; filterArray: any[] }[] = []
+
+//   departments.value.forEach((department) => {
+//     const matchingJobs = jobOpenings.value.filter((job) => {
+//       return job.departments.includes(department.value)
+//     })
+
+//     if (matchingJobs.length > 0) {
+//       const formattedDepartment = department.value
+//         .replace(/_/g, ' ')
+//         .replace(/\b\w/g, (c) => c.toUpperCase())
+
+//       const obj = { department: formattedDepartment, filterArray: matchingJobs }
+//       array.push(obj)
+//     }
+//   })
+//   // console.log(array)
+//   return array
+// }
+
 function jobListData () {
   const array: { department: string; filterArray: any[] }[] = []
 
@@ -54,7 +75,14 @@ function jobListData () {
         .replace(/_/g, ' ')
         .replace(/\b\w/g, (c) => c.toUpperCase())
 
-      const obj = { department: formattedDepartment, filterArray: matchingJobs }
+      const sortedMatchingJobs = matchingJobs.sort((a, b) =>
+        a.title.localeCompare(b.title)
+      )
+
+      const obj = {
+        department: formattedDepartment,
+        filterArray: sortedMatchingJobs
+      }
       array.push(obj)
     }
   })
@@ -75,6 +103,11 @@ const filter = computed(() => {
     return filterData.value.includes(item.department)
   })
   console.log(result)
+
+  result.forEach(item => {
+    sum.value += item.filterArray.length
+    console.log(sum.value)
+  })
 
   return result
 })
