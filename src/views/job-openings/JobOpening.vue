@@ -2,12 +2,13 @@
     <div class="max-w-[450px]">
         <el-select class="mb-5" v-model="selectValue" multiple filterable allow-create default-first-option
             :reserve-keyword="false" placeholder="Choose tags for your article">
-            <el-option v-for="(item, index) in departments" :key="index" :label="item.name" :value="item.name" />
+            <el-option v-for="(item, index) in jobList()" :key="index" :label="item.department" :value="item.department" />
         </el-select>
+        <p class="mb-2">Showing <span class="font-bold">{{ sum }}</span> out of  <span class="font-bold">{{ jobOpeningsOther().length }}</span> job openings</p>
         <div class="w-[100%] h-[1px] bg-[#c9c9c9] mb-5"></div>
         <ul class="custom-list" v-for="(item, index) in filterJobs" :key="index">
-            <h2 class="font-bold mb-4 pl-4">{{ Object.keys(item)[0] }} ({{ (Object.values(item)[0]).length }})</h2>
-            <li class="text-light-blue pl-10 mb-2" v-for="(job, index) in Object.values(item)[0]" :key="index">
+            <h2 class="font-bold mb-4 pl-4">{{ item.department }} ({{ item.filterArray.length }})</h2>
+            <li class="text-light-blue pl-10 mb-2" v-for="(job, index) in item.filterArray" :key="index">
                 {{ Object.values(job)[0] }}
             </li>
             <button class="pl-4 pb-2 text-light-blue font-semibold">See More</button>
@@ -16,41 +17,65 @@
 </template>
   
 <script lang="ts" setup>
-const selectValue = ref("")
-const showMore = ref(5)
-
 const jobOpeningsStore = useJobOpeningsStore()
 const { departments, jobOpenings } = storeToRefs(jobOpeningsStore)
 
-function jobList() {
-    const array: any[] = []
-    departments.value.forEach(department => {
-        const matchingJobs = jobOpenings.value.filter((job) => {
-            return job.departments.includes(department.value);
-        });
+const selectValue = ref("")
+const sum = ref(jobOpenings.value.length)
 
-        if (matchingJobs.length > 0) {
-            array.push({ [department.name]: matchingJobs });
+function jobOpeningsOther() {
+    return jobOpenings.value.map(item => {
+        if (item.departments.length === 0) {
+            item.departments = ['other'];
+        }
+        return item
+    })
+}
+
+function jobList() {
+    const array: { department: string; filterArray: any[] }[] = []
+
+    departments.value.forEach((department) => {
+        const elevantJobList = jobOpeningsOther().filter((job) => {
+            return job.departments.includes(department.value)
+        })
+
+        if (elevantJobList.length > 0) {
+            const formattedDepartment = department.value
+                .replace(/_/g, ' ')
+                .replace(/\b\w/g, (c) => c.toUpperCase())
+
+            const sortedElevantJobList = elevantJobList.sort((a, b) =>
+                a.title.localeCompare(b.title)
+            )
+
+            const obj = { department: formattedDepartment, filterArray: sortedElevantJobList }
+            array.push(obj)
         }
     })
     return array
 }
 
 const filterJobs = computed(() => {
-    return jobList().filter(item => {
-        if (selectValue.value.length === 0) {
-            return true
-        }
-        return selectValue.value.includes(Object.keys(item)[0])
+    let couner = 0
+    if (selectValue.value.length === 0) {
+        sum.value = jobOpenings.value.length
+        return jobList()
+    }
+
+    const result = jobList().filter(item => {
+        return selectValue.value.includes(item.department)
     })
+
+    if (selectValue.value.length > 0) {
+        result.forEach(item => {
+            couner = couner + item.filterArray.length
+            sum.value = couner
+        })
+    }
+    return result
 })
 
-// const firstFiveJobs = computed(() => {
-//     return Object.values(filterJobs.value).map(item => {
-//         console.log((Object.values(item))[0])
-//         // return item
-//     })
-// })
 </script>
 
 <style lang="scss">
@@ -69,6 +94,7 @@ const filterJobs = computed(() => {
 
     button {
         position: relative;
+
         &::after {
             content: "";
             position: absolute;
@@ -111,7 +137,7 @@ const filterJobs = computed(() => {
     position: relative;
     cursor: pointer;
 
-    &:hover{
+    &:hover {
         text-decoration: underline;
     }
 

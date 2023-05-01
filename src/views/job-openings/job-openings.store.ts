@@ -127,6 +127,10 @@ export const useJobOpeningsStore = defineStore('jobOpeningsStore', () => {
     {
       name: 'Product Management',
       value: 'product_management'
+    },
+    {
+      name: 'Other',
+      value: 'other'
     }
   ])
 
