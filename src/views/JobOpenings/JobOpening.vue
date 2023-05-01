@@ -37,27 +37,19 @@ const showMore = ref(true)
 
 const jobOpeningStore = useJobOpeningStore()
 const { departments, jobOpenings } = storeToRefs(jobOpeningStore)
-// console.log(departments)
-// console.log(jobOpenings.value)
 
 function jobListData () {
-  const array: any[] = []
-  departments.value.forEach(department => {
-    const matchingJobs = jobOpenings.value.filter((job) => {
-      return job.departments.includes(department.value)
-    })
-
-    // if (matchingJobs.length > 0 && true) {
-    //   array.push({ [department.name]: matchingJobs })
-    // }
-
-    if (matchingJobs.length > 0) {
-      array.push({ [department.name]: matchingJobs.slice(0, 5) })
+  return departments.value.reduce((array, department) => {
+    const matchingJobs = jobOpenings.value.filter(job => job.departments.includes(department.value))
+    if (matchingJobs.length) {
+      array.push({ [department.name]: matchingJobs })
     }
-  })
-
-  return array
+    return array
+  }, [])
 }
+
+const result = jobListData()
+console.log(result)
 
 const redirect = () => {
   router.replace({ name: $routeNames.contacts })
