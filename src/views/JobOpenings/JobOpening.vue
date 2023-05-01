@@ -78,6 +78,8 @@ const filter = computed(() => {
 <style lang="scss">
 .side-bar{
   box-sizing: border-box;
+  height: 900px;
+  overflow-y: scroll;
 
   width:450px;
   border: 1px solid gray;
