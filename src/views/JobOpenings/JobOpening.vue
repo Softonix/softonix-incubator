@@ -19,11 +19,11 @@
       Showing  out of {{ jobOpenings.length }} job openings
     </div>
     <ul v-for="(item, index) in filter" :key="index" class="unorderedList">
-      <h2 class="unorderedList__titles">{{ Object.keys(item)[0] }} ({{ Object.values(item)[0].length }})</h2>
-      <li v-for="(job, index) in Object.values(item)[0]" :key="index" class="unorderedList__item">
+      <h2 class="unorderedList__titles">{{ item.department }} ({{ item.filterArray.length }})</h2>
+      <li v-for="(job, index) in item.filterArray" :key="index" class="unorderedList__item">
         {{ Object.values(job)[0] }}
       </li>
-      <button class="unorderedList__btn " @click="!showMore">Show more</button>
+      <button class="unorderedList__btn " @click="sd">Show more</button>
     </ul>
   </aside>
 </template>
@@ -33,23 +33,31 @@ const router = useRouter()
 
 const { $routeNames } = useGlobalProperties()
 const filterData = ref('')
-const showMore = ref(true)
 
 const jobOpeningStore = useJobOpeningStore()
 const { departments, jobOpenings } = storeToRefs(jobOpeningStore)
+console.log(departments.value)
 
 function jobListData () {
-  return departments.value.reduce((array, department) => {
-    const matchingJobs = jobOpenings.value.filter(job => job.departments.includes(department.value))
-    if (matchingJobs.length) {
-      array.push({ [department.name]: matchingJobs })
-    }
-    return array
-  }, [])
-}
+  const array: { department: string; filterArray: any[] }[] = []
 
-const result = jobListData()
-console.log(result)
+  departments.value.forEach((department) => {
+    const matchingJobs = jobOpenings.value.filter((job) => {
+      return job.departments.includes(department.value)
+    })
+
+    if (matchingJobs.length > 0) {
+      const formattedDepartment = department.value
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, (c) => c.toUpperCase())
+
+      const obj = { department: formattedDepartment, filterArray: matchingJobs }
+      array.push(obj)
+    }
+  })
+  console.log(array)
+  return array
+}
 
 const redirect = () => {
   router.replace({ name: $routeNames.contacts })
@@ -61,7 +69,7 @@ const filter = computed(() => {
   }
 
   return jobListData().filter(item => {
-    return filterData.value.includes(Object.keys(item)[0])
+    return filterData.value.includes(item.department)
   })
 })
 
