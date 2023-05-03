@@ -2,17 +2,19 @@
   "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": [
     "dts/*",
-     "src/**/*", 
-     "src/**/*.vue"
-    ],
+    "src/**/*",
+    "src/**/*.vue"
+  ],
   "compilerOptions": {
     "jsx": "preserve",
+    "ignoreDeprecations": "5.0",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
-
   "references": [
     {
       "path": "./tsconfig.config.json"
