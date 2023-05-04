@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     AppButton: typeof import('./../src/components/AppButton.vue')['default']
     AppInput: typeof import('./../src/components/AppInput.vue')['default']
     Card: typeof import('./../src/components/Card.vue')['default']
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButo: typeof import('element-plus/es')['ElButo']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
