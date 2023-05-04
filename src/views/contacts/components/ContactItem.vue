@@ -1,15 +1,23 @@
 <template>
-  <Card>
-    <div class="flex">
+  <el-card :body-style="{ padding: '0px' }">
+    <div class="flex p-[20px]">
       <div class="flex-grow text-sm truncate" @click.stop>
         <template v-if="editMode">
-          <input
-            ref="inputRef"
-            v-model="localContact.name"
-            type="text"
-            class="block font-medium w-full"
-          >
-          <input v-model="localContact.description" type="text" class="block mt-1 text-gray w-full">
+          <div class="flex flex-wrap gap-[2px]">
+            <el-input
+              ref="inputRef"
+              v-model="localContact.name"
+              clearable
+              class="block font-medium w-full"
+              :size="$elComponentSize.small"
+            />
+            <el-input
+              v-model="localContact.description"
+              clearable
+              :size="$elComponentSize.small"
+              class="block mt-1 text-gray w-full"
+            />
+          </div>
         </template>
 
         <template v-else>
@@ -41,48 +49,65 @@
       </div>
     </div>
 
-    <div class="flex justify-end mt-2 gap-2">
+    <div class="flex justify-end mt-2 gap-2 px-[20px]">
       <template v-if="editMode">
-        <span
-          class="text-blue-500 font-medium text-xs cursor-pointer hover:underline"
+        <el-button
+          link :type="$elComponentType.danger"
+          class="font-medium text-xs cursor-pointer hover:underline"
           @click.stop="editMode = false"
-        >Cancel</span>
+        >
+          Cancel
+        </el-button>
 
-        <span
+        <el-button
+          link :type="$elComponentType.primary"
           class="text-blue-500 font-medium text-xs cursor-pointer hover:underline"
           @click.stop="onSave"
-        >Save</span>
+        >
+          Save
+        </el-button>
       </template>
 
       <template v-else>
-        <span
-          class="text-blue-500 font-medium text-xs cursor-pointer hover:underline"
-          @click.stop="triggerEditMode"
-        >Edit</span>
+        <div class="pb-[10px]">
+          <el-button
+            class="font-medium text-xs cursor-pointer hover:underline"
+            link
+            :type="$elComponentType.primary"
+          >
+            Edit
+          </el-button>
 
-        <span
-          class="text-red-500 font-medium text-xs cursor-pointer hover:underline"
-          @click.stop="$emit('delete', contact)"
-        >Delete</span>
+          <el-button
+            class="font-medium text-xs cursor-pointer hover:underline"
+            link
+            :type="$elComponentType.danger"
+            @click.stop="$emit('delete', contact)"
+          >
+            Delete
+          </el-button>
+        </div>
       </template>
     </div>
 
-    <template #footer>
+    <div>
       <div class="flex text-sm font-medium text-gray-dark border-t border-gray-ultra-light" @click.stop>
-        <div class="flex items-center justify-center flex-1 py-4 cursor-pointer hover:text-gray">
+        <el-button link class="flex items-center justify-center flex-1 py-4 cursor-pointer hover:text-gray">
           <IconEnvelope />
           <span class="ml-3">Email</span>
-        </div>
+        </el-button>
         <div
           class="flex items-center justify-center flex-1 py-4 border-l
             border-gray-ultra-light cursor-pointer hover:text-gray"
         >
-          <IconPhone />
-          <span class="ml-3">Call</span>
+          <el-button link>
+            <IconPhone />
+            <span class="ml-3">Call</span>
+          </el-button>
         </div>
       </div>
-    </template>
-  </Card>
+    </div>
+  </el-card>
 </template>
 
 <script lang="ts" setup>
@@ -110,13 +135,6 @@ const nameAbbrv = computed(() => {
 })
 
 const editMode = ref(false)
-
-async function triggerEditMode () {
-  editMode.value = true
-  localContact.value = { ...props.contact }
-  await nextTick()
-  inputRef.value?.focus()
-}
 
 function onSave () {
   emit('save', localContact.value)
