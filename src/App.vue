@@ -29,6 +29,8 @@
 <script lang="ts" setup>
 import { countryService } from '@/examples/data-preparation'
 import { intersectionService } from '@/examples/intersection'
+import { promiseExecutor } from '@/homework/homework-1-promises'
+import { sumMemoized } from '@/homework/homework-2-memoize'
 
 const countries = ref()
 const cities = ref()
@@ -57,7 +59,14 @@ loadDataPartially()
 
 onMounted(() => {
   intersectionService.detectElementByIntersection()
+  // hw1
+  promiseExecutor()
+  // hw2
+  console.log(sumMemoized(1, 3)) // результат 4
+  console.log(sumMemoized(3, 3)) // результат 6
+  console.log(sumMemoized(1, 3)) // результат 4, відбулось повторне виконання, результат повернуто з кешу без виклику додавання
 })
+
 </script>
 
 <style lang="scss">
